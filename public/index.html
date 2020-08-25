@@ -6,10 +6,19 @@
   </head>
   <body>
     <script type="text/javascript">
+    function printCoords(position) {
+      let p = document.createElement('p');
+      p.innerText = `latitude: ${position.coords.latitude}
+      longitude: ${position.coords.longitude}`
+      let body = document.querySelector('body');
+      body.appendChild(p);
+    }
+
     if ('geolocation' in navigator) {
       console.log('Geolocation is available');
       navigator.geolocation.getCurrentPosition(position => {
         console.log(position.coords);
+        printCoords(position);
       });
     } else {
       console.log('Geolocation is not available :(');
