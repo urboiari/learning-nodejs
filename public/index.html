@@ -8,6 +8,9 @@
     <script type="text/javascript">
     if ('geolocation' in navigator) {
       console.log('Geolocation is available');
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log(position.coords);
+      });
     } else {
       console.log('Geolocation is not available :(');
     }
