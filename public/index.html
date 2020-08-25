@@ -9,10 +9,24 @@
     function printCoords() {
       if ('geolocation' in navigator) {
         console.log('Geolocation is available');
-        navigator.geolocation.getCurrentPosition(position => {
-          console.log(position.coords);
-          document.querySelector('#lat').innerText = position.coords.latitude;
-          document.querySelector('#lon').innerText = position.coords.longitude;
+        navigator.geolocation.getCurrentPosition(async position => {
+          let lat = position.coords.latitude;
+          let lon = position.coords.longitude;
+          document.querySelector('#lat').innerText = lat;
+          document.querySelector('#lon').innerText = lon;
+
+          let data = {lat, lon};
+          let locationObject = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          }
+
+          let response = await fetch('/api', locationObject);
+          let responseJSON = await response.json();
+          console.log(responseJSON); 
         });
       } else {
         console.log('Geolocation is not available :(');
